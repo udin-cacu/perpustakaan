@@ -53,21 +53,38 @@ class PinjamController extends Controller
 
         $deadline = date('Y-m-d', strtotime($date . ' +7 days'));
 
-        $simpan = new Pinjams();
-        $simpan->book_id = $request->book_id;
-        $simpan->user_id = $user->id;
-        $simpan->tgl_pinjam = $date;
-        $simpan->tgl_kembali = $deadline;
-        $simpan->save();
-
-        // Kurangi stok buku
         $book = Books::find($request->book_id);
-        if ($book && $book->stock > 0) {
-            $book->stock = $book->stock - 1;
-            $book->save();
-        }
 
-        return response()->json($simpan);
+        if($book->stock != 0) {
+
+            $simpan = new Pinjams();
+            $simpan->book_id = $request->book_id;
+            $simpan->user_id = $user->id;
+            $simpan->tgl_pinjam = $date;
+            $simpan->tgl_kembali = $deadline;
+            $simpan->save();
+
+            // Kurangi stok buku
+            if ($book && $book->stock > 0) {
+                $book->stock = $book->stock - 1;
+                $book->save();
+            }
+
+            return response()->json([
+                'message' => 'Buku Anda Tersimpan',
+                'icon' => 'success',
+                'status' => '1',
+            ]);
+            
+
+        }else{
+
+            return response()->json([
+                'message' => 'Stok Habis',
+                'icon' => 'error',
+                'status' => '0',
+            ]);
+        }
     }
 
     /*Data Admin*/

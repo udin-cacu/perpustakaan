@@ -25,9 +25,11 @@ Route::get('/about', function () {
     return view('member.about');
 });
 
-Route::get('/petugas', function () {
+/*Route::get('/petugas', function () {
     return view('member.petugas');
-});
+});*/
+
+Route::get('/petugas', [App\Http\Controllers\UsersController::class, 'petugas'])->name('petugas');
 
 
 Auth::routes();

@@ -101,6 +101,18 @@ class UsersController extends Controller
         return response()->json($data);
     }
 
+    public function petugas(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+        $user = Auth::user();
+
+        $petugas = Users::select('users.*')
+        ->where('role_id', '!=', 3)
+        ->get();
+
+        return view('member.petugas', compact('petugas'));
+    }
 
     /*Master KARYAWAN*/
     public function index2()
@@ -203,4 +215,5 @@ class UsersController extends Controller
 
         return view('member.profile', compact('user'));
     }
+
 }

@@ -44,6 +44,11 @@
             <input type="number" class="form-control" id="cetakan_ke">
         </div>
 
+        <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Deskripsi</label>
+            <textarea class="form-control" id="ket"></textarea>
+        </div>
+
         <div class="form-group" align="left" id="upload">
           <label>Upload Gambar</label>
           <div class="photos"></div>
@@ -122,6 +127,11 @@
 <div class="form-group">
     <label for="recipient-name" class="col-form-label">Cetakan Ke</label>
     <input type="number" class="form-control" id="cetakan_keedit">
+</div>
+
+<div class="form-group">
+    <label for="recipient-name" class="col-form-label">Deskripsi</label>
+    <textarea class="form-control" id="ketedit"></textarea>
 </div>
 
 <div class="form-group" align="left" id="upload">

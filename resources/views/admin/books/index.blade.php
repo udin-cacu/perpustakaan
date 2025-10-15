@@ -69,6 +69,7 @@
                 <th>Pengarang</th>
                 <th>Tgl Terbit</th>
                 <th>Stok</th>
+                <th>Ket</th>
                 <th width="14%">Opsi</th>
               </tr>
             </thead>
@@ -119,6 +120,7 @@
         { data: 'pengarang', name: 'pengarang' },
         { data: 'tanggal', name: 'tanggal' },
         { data: 'stock', name: 'stock' },
+        { data: 'ket', name: 'ket' },
         { 
           render: function ( data, type, row ) {
 
@@ -197,6 +199,7 @@
           'tgl_terbit': $('#tgl_terbit').val(),
           'stock': $('#stock').val(),
           'cetakan_ke': $('#cetakan_ke').val(),
+          'ket': $('#ket').val(),
           'gambar': $('.imgs').val(),
         },
         success: function(data) {
@@ -242,6 +245,7 @@
           $('#tgl_terbitedit').val(data.tgl_terbit);
           $('#stockedit').val(data.stock);
           $('#cetakan_keedit').val(data.cetakan_ke);
+          $('#ketedit').val(data.ket);
           $('#gambaredit').val(data.img);
           $('#idedit').val(data.id);
           $('.photos2').html("<img width='100%' src='/assets2/gambar/"+data.img+"'><hr>"); 
@@ -331,6 +335,7 @@
             'tgl_terbit': $('#tgl_terbitedit').val(),
             'stock': $('#stockedit').val(),
             'cetakan_ke': $('#cetakan_keedit').val(),
+            'ket': $('#ketedit').val(),
             'gambar': $('.imgsedit').val(),
             'gambaredit': $('#gambaredit').val(),
             'id': $('#idedit').val(),

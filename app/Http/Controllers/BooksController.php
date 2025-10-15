@@ -59,6 +59,7 @@ class BooksController extends Controller
         $simpan->stock = $request->stock;
         $simpan->cetakan_ke = $request->cetakan_ke;
         $simpan->img = $request->gambar;
+        $simpan->ket = $request->ket;
         $simpan->save();
 
         return response()->json($simpan);
@@ -157,6 +158,7 @@ class BooksController extends Controller
         $ubah->tgl_terbit = $request->tgl_terbit;
         $ubah->stock = $request->stock;
         $ubah->cetakan_ke = $request->cetakan_ke;
+        $ubah->ket = $request->ket;
         if($request->gambar != '') {
 
             $ubah->img = $request->gambar;

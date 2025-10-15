@@ -12,8 +12,8 @@
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
 			<div class="col-md-8 ftco-animate text-center">
-				<p class="breadcrumbs"><span class="mr-2"><a href="/home">Home</a></span> <span>Teacher</span></p>
-				<h1 class="mb-3 bread">Teacher</h1>
+				<p class="breadcrumbs"><span class="mr-2"><a href="/home">Home</a></span> <span>Library Officer</span></p>
+				<h1 class="mb-3 bread">Library Officer</h1>
 			</div>
 		</div>
 	</div>
@@ -27,13 +27,14 @@
 			</div>
 		</div>
 		<div class="row">
+			@foreach($petugas as $data)
 			<div class="col-lg-4 mb-sm-4 ftco-animate">
 				<div class="staff">
 					<div class="d-flex mb-4">
 						<div class="img" style="background-image: url(/content/images/person_1.jpg);"></div>
 						<div class="info ml-4">
-							<h3><a href="teacher-single.html">Ivan Jacobson</a></h3>
-							<span class="position">CSE Teacher</span>
+							<h3><a href="teacher-single.html">{{$data->name}}</a></h3>
+							<span class="position">{{$data->email}}</span>
 							<p class="ftco-social d-flex">
 								<a href="#" class="d-flex justify-content-center align-items-center"><span class="icon-twitter"></span></a>
 								<a href="#" class="d-flex justify-content-center align-items-center"><span class="icon-facebook"></span></a>
@@ -46,6 +47,7 @@
 					</div>
 				</div>
 			</div>
+			@endforeach
 			<div class="col-lg-4 mb-sm-4 ftco-animate">
 				<div class="staff">
 					<div class="d-flex mb-4">

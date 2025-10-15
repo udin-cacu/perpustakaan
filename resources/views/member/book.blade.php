@@ -84,9 +84,9 @@
         ">
       </a>
       <div class="text p-4">
-        <p class="category"><span>{{$data->judul}}</span> <span class="price">{{$data->stock}}</span></p>
+        <p class="category"><span>{{$data->judul}}</span> <span class="price"> Stock : {{$data->stock}}</span></p>
         <h3 class="mb-3"><a href="#">{{$data->pengarang}}</a></h3>
-        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name</p>
+        <p>{{$data->ket}}</p>
         <p><a href="#" class="btn btn-primary" onclick="Pinjam({{$data->id}})">Pinjam</a></p>
       </div>
     </div>
@@ -169,19 +169,37 @@
         _token: "{{ csrf_token() }}",
         book_id: id
       },
-      success: function(response) {
+      success: function(data) {
         $('#modalPinjam').modal('hide');
-        Swal({
-          icon: 'success',
-          title: 'Berhasil!',
-          text: 'Buku berhasil dipinjam.',
-          showConfirmButton: false,
-          timer: 1500
-        });
+
+        if(data.status == '1'){
+
+
+
+          swal({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: 'Buku berhasil dipinjam.',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+        }else{
+
+
+          swal({
+            icon: 'error',
+            title: 'Gagal Tersimpan!',
+            text: 'Stok buku Habis.'
+          });
+
+        }
+
       },
+
       error: function(xhr) {
         $('#modalPinjam').modal('hide');
-        Swal({
+        swal({
           icon: 'error',
           title: 'Gagal!',
           text: 'Terjadi kesalahan saat meminjam buku.'
