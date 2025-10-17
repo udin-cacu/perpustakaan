@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			@endforeach
-			<div class="col-lg-4 mb-sm-4 ftco-animate">
+			<!-- <div class="col-lg-4 mb-sm-4 ftco-animate">
 				<div class="staff">
 					<div class="d-flex mb-4">
 						<div class="img" style="background-image: url(/content/images/person_2.jpg);"></div>
@@ -199,7 +199,7 @@
 						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name</p>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </section>

@@ -6,7 +6,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Admin X-Attend | Dashboard Admin X-Attend
+    Admin | Libarary University
   </title>
   <!-- Favicon -->
   <link href="/assets/icon/72x72.png" rel="icon" type="image/png">
@@ -19,7 +19,6 @@
   <!-- CSS Files -->
   <link href="/assets/content/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-
 </head>
 
 <body class="">
@@ -30,9 +29,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="/home">
-        <img src="/assets/splash/images/newtom.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0 d-flex align-items-center" href="/home">
+        <img src="/assets/icon/unive.png" alt="Logo" style="height: 40px; margin-left: 8px;" />
+        <div class="text-center d-flex flex-column justify-content-center">
+          <span style="line-height: 1;font-size: 12px;">Library</span>
+          <span style="line-height: 1;font-size: 12px;">University</span>
+        </div>
       </a>
+
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
 
@@ -189,7 +193,7 @@
             </div>
 
             <div class="dropdown-divider"></div>
-            @if(Auth::user()->role_id == 1)
+            @if(Auth::user()->role_id == 3)
             <a href="/home" class="dropdown-item">Masuk Sebagai Karyawan</a>
             @endif
             <a href="{{ route('logout') }}" class="dropdown-item menusxx"
