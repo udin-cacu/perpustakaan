@@ -10,6 +10,9 @@ use DataTables;
 use Uuid;
 use Auth;
 use Hash;
+use Validator;
+use DB;
+
 class UsersController extends Controller
 {
     /*Master MEMBER*/
@@ -101,6 +104,37 @@ class UsersController extends Controller
         return response()->json($data);
     }
 
+    public function storeprofile(Request $request)
+    {
+
+        date_default_timezone_set('Asia/Jakarta');
+
+        if($request->name && !$request->gambar){
+
+            $ubahmember = Users::findOrFail($request->id);
+            $ubahmember->name = $request->name;
+            $ubahmember->email = $request->email;
+            $ubahmember->save();
+
+        }elseif(!$request->name && $request->gambar) {
+
+            $ubahmember = Users::findOrFail($request->id);
+            $ubahmember->photo = $request->gambar;
+            $ubahmember->save();
+
+        }elseif($request->name && $request->gambar){
+            $ubahmember = Users::findOrFail($request->id);
+            $ubahmember->name = $request->name;
+            $ubahmember->email = $request->email;
+            $ubahmember->photo = $request->gambar;
+            $ubahmember->save();
+        }
+
+
+        $data = '1';
+        return response()->json($data);
+    }
+
     public function petugas(Request $request)
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -112,6 +146,40 @@ class UsersController extends Controller
         ->get();
 
         return view('member.petugas', compact('petugas'));
+    }
+
+    public function upload(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $user = Auth::user();
+
+        $validation = Validator::make($request->all(), [
+            'file' => 'required|mimes:doc,docx,xls,xlsx,pdf,jpg,jpeg,png,bmp',
+        ]);
+
+        if ($validation->passes()) {
+
+            $file = $request->file('file');
+            $filename = rand() . '.' . $file->getClientOriginalExtension();
+
+            $destinationPath = public_path('/content/images');
+            $file->move($destinationPath, $filename);
+
+            return response()->json([
+                'message' => 'Upload Anda Tersimpan',
+                'icon' => 'success',
+                'name' => $filename,
+                'status' => '1',
+            ]);
+
+        } else {
+
+            return response()->json([
+                'message' => $validation->errors()->all(),
+                'icon' => 'error',
+                'status' => '0',
+            ]);
+        }
     }
 
     /*Master KARYAWAN*/

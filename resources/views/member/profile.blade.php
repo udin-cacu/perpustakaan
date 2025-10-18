@@ -18,11 +18,12 @@
 				<div class="row">
 					<div class="col-md-12 mb-5">
 						<div class="teacher-details d-flex flex-column flex-md-row align-items-start">
-
+							<input type="hidden" id="idedit" value="{{$user->id}}">
 							{{-- FOTO --}}
 							<div class="text-center me-md-4 mb-4 mb-md-0 w-100" style="max-width: 400px;">
 
 								@if($user->photo)
+								<div class="photos"></div>
 								<div class="img ftco-animate mx-auto"
 								style="background-image: url('/content/images/{{$user->photo}}');
 								width:100%; max-width:400px; height:400px;
@@ -30,6 +31,7 @@
 								border-radius:10px;">
 							</div>
 							@else
+							<div class="photos"></div>
 							<div class="img ftco-animate d-flex justify-content-center align-items-center mx-auto"
 							style="width:100%; max-width:400px; height:400px;
 							background-color:#f8f9fa; border-radius:10px;
@@ -39,7 +41,8 @@
 						@endif
 
 						{{-- Tombol Upload --}}
-						<div class="form-group mt-3">
+						<div class="form-group mt-3" id="upload">
+							<input class="imgs" type="hidden">
 							<button class="btn btn-warning w-100" onclick="$('#uploadfoto').click();">
 								<i class="fa fa-upload"></i> Upload Foto
 							</button>
@@ -77,22 +80,41 @@
 
 				</div>
 			</div>
+			<div class="form-group simpanupload">
+				<table width="100%">
+					<tr>
+						<td width="40%">
+							<button type="button" onclick="Simpan();" class="btn btn-block btn-success ml-auto menusxx"><i class="fa fa-plus"></i> Ubah Photo</button> 
+						</td>
+						<td width="20%"></td>
+						<td width="40%"></td>
+					</tr>
+				</table>
+			</div>
 
-
-			<div class="col-md-12 bg-light mt-3 p-5 ftco-animate">
-				<h4 class="mb-4">Send a Message</h4>
+			<button class="btn btn-primary w-100 tambah" onclick="Tambah();" style="display:block;">Update Data Profile</button>
+			
+			<div class="col-md-12 bg-light mt-3 p-5 ftco-animate updatedata" style="display:none;">
+				<h4 class="mb-4">Update data</h4>
 				<form action="#">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Your Name">
+						<input type="text" class="form-control" placeholder="Your Name" id="name">
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Your Email">
+						<input type="text" class="form-control" placeholder="Your Email" id="email">
 					</div>
 					<div class="form-group">
-						<textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+						<table width="100%">
+							<tr>
+								<td width="40%">
+									<button type="button" onclick="Simpan();" class="btn btn-block btn-success ml-auto menusxx"><i class="fa fa-plus"></i> Tambah</button> 
+								</td>
+								<td width="5%"></td>
+								<td width="40%">
+									<button type="button" onclick="Close();" class="btn btn-block btn-warning ml-auto menusxx" style="color:white;"><i class="fa fa-minus"></i> Close</button>
+								</td>
+							</tr>
+						</table>
 					</div>
 				</form>
 			</div>
@@ -102,3 +124,104 @@
 </div>
 </section>
 @include('layouts.foot')
+<script>
+	function Tambah(){
+
+		$('.updatedata').show();
+		$('.tambah').hide();
+		$('.close').show();
+		$('.simpanupload').hide();
+	}
+
+	function Close(){
+
+		$('.updatedata').hide();
+		$('.tambah').show();
+		$('.close').hide();
+		$('.simpanupload').show();
+	}
+
+
+	$("#uploadfoto").on("change", function() {
+
+		$('.loading').attr('style','display: block');
+
+		var formData = new FormData();
+		formData.append('file', $('#uploadfoto')[0].files[0]);
+
+		$.ajax({
+			url: "{{ route('profile.upload') }}",
+			method:"POST",
+			data: formData,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			dataType:'JSON',
+			contentType: false,
+			cache: false,
+			processData: false,
+
+			success:function(data) {
+
+				$('.loading').attr('style','display: none');
+
+				if(data.status == '1'){
+					$('.img').attr('style','display: none');
+					$('.photos').html("<img width='100%' src='/content/images/"+data.name+"'><hr>"); 
+					$('.imgs').val(data.name);         
+
+				} else {
+
+					swal({
+						title: "Gagal!",
+						text: "Pastikan File yang Anda Upload Benar!",
+						icon: "error",
+						buttons: false,
+						timer: 2000,
+					});
+
+
+				}
+			}
+		});
+
+	});
+
+	function Simpan(){
+
+		$.ajax({
+			type: 'POST',
+			url: "{{ route('profile.storeprofile') }}",
+			data: {
+				'_token': $('input[name=_token]').val(),
+				'id': $('#idedit').val(),
+				'name': $('#name').val(),
+				'email': $('#email').val(),
+				'gambar': $('.imgs').val(),
+			},
+			success: function(data) {
+
+
+
+				$('#new').modal('hide');
+
+				swal({
+					title: "Success",
+					text: "Profile Berhasil Tersimpan",
+					icon: "success",
+					buttons: false,
+					timer: 2000,
+				});
+
+				setTimeout(function(){ window.location.href = '/profile'; }, 2000);
+
+
+			}
+
+		});
+
+
+
+	}
+
+</script>

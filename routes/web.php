@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/pinjam/data2', [App\Http\Controllers\PinjamController::class, 'data2'])->name('pinjam.data2');
         Route::post('/pinjam/edit', [App\Http\Controllers\PinjamController::class, 'edit'])->name('pinjam.edit');
         Route::post('/pinjam/update', [App\Http\Controllers\PinjamController::class, 'update'])->name('pinjam.update');
+        Route::post('/pinjam/delete', [App\Http\Controllers\PinjamController::class, 'delete'])->name('pinjam.delete');
 
         Route::get('/deadline', [App\Http\Controllers\PinjamController::class, 'index3'])->name('deadline.index3');
         Route::get('/deadline/data3', [App\Http\Controllers\PinjamController::class, 'data3'])->name('deadline.data3');
@@ -90,6 +91,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/konfirmasipinjam', [App\Http\Controllers\PinjamController::class, 'index'])->name('konfirmasipinjam.index');
         Route::get('/konfirmasipinjam/data', [App\Http\Controllers\PinjamController::class, 'data'])->name('konfirmasipinjam.data');
         Route::post('/pinjam/store', [App\Http\Controllers\PinjamController::class, 'store'])->name('pinjam.store');
+        Route::post('/profile/upload', [App\Http\Controllers\UsersController::class, 'upload'])->name('profile.upload');
+        Route::post('/profile/storeprofile', [App\Http\Controllers\UsersController::class, 'storeprofile'])->name('profile.storeprofile');
 
     });
 

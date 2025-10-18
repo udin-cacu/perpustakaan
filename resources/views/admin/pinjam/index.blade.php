@@ -145,7 +145,7 @@
         { 
           render: function ( data, type, row ) {
 
-            return '<button class="btn btn-sm btn-outline-danger" onclick="Delete('+row.id+')"><i class="fa fa-trash text-danger"></i></button>&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-outline-info" onclick="Edit('+row.idpinjam+')"><i class="fa fa-edit text-info"></i></button>';
+            return '<button class="btn btn-sm btn-outline-danger" onclick="Delete('+row.idpinjam+')"><i class="fa fa-trash text-danger"></i></button>&nbsp;&nbsp;&nbsp;<button class="btn btn-sm btn-outline-info" onclick="Edit('+row.idpinjam+')"><i class="fa fa-edit text-info"></i></button>';
 
           }
         }
@@ -244,7 +244,7 @@
 
       $.ajax({
         type: 'POST',
-        url: "{{ route('book.delete') }}",
+        url: "{{ route('pinjam.delete') }}",
         data: {
           '_token': $('input[name=_token]').val(),
           'id': ids,
@@ -253,13 +253,13 @@
 
           swal({
             title: "Success",
-            text: "Book Berhasil di Delete!",
+            text: "Pinjam Berhasil di Delete!",
             icon: "success",
             buttons: false,
             timer: 2000,
           });
 
-          setTimeout(function(){ window.location.href = '/book'; }, 2000);
+          setTimeout(function(){ window.location.href = '/pinjam'; }, 2000);
 
         }
 

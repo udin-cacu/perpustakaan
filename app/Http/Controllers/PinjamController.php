@@ -174,4 +174,15 @@ class PinjamController extends Controller
 
         return response()->json($update);
     }
+
+    public function delete(Request $request)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d');
+        $user = Auth::user();
+
+        $hapus = Pinjams::where('id', $request->id)->delete();
+
+        return response()->json($hapus);
+    }
 }
