@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\Laravel\Facades\Image;
+use Image;
 use App\Models\Books;
 use DataTables;
 use Uuid;
@@ -19,16 +19,17 @@ class BooksController extends Controller
         $date = date('Y-m-d');
         $user = Auth::user();
 
-        if($user->role_id != 3){
+        return view('admin.books.index');
+    }
 
-            return view('admin.books.index');
+    public function index2()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d');
 
-        }else{
+        $book = Books::paginate(10);
 
-            $book = Books::paginate(10);
-
-            return view('member.book', compact('book'));
-        }
+        return view('member.book', compact('book'));
 
     }
 
@@ -49,9 +50,13 @@ class BooksController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Y-m-d');
         $user = Auth::user();
+        $year = date('Y');
+
+        $uuid = Uuid::generate();
+        $code = substr($uuid, 0, 5);
 
         $simpan = new Books();
-        $simpan->kode = $request->kode;
+        $simpan->kode = "BN-".$code."-".$year;;
         $simpan->judul = $request->judul;
         $simpan->pengarang = $request->pengarang;
         $simpan->penerbit = $request->penerbit;
@@ -151,7 +156,6 @@ class BooksController extends Controller
         $user = Auth::user();
 
         $ubah = Books::findOrFail($request->id);
-        $ubah->kode = $request->kode;
         $ubah->judul = $request->judul;
         $ubah->pengarang = $request->pengarang;
         $ubah->penerbit = $request->penerbit;

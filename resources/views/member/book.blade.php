@@ -1,4 +1,8 @@
+@if(Auth::user())
 @include('layouts.head')
+@else
+@include('layouts.head2')
+@endif
 <style>
   .custom-pagination {
     display: inline-flex;
@@ -87,7 +91,13 @@
         <p class="category"><span>{{$data->judul}}</span> <span class="price"> Stock : {{$data->stock}}</span></p>
         <h3 class="mb-3"><a href="#">{{$data->pengarang}}</a></h3>
         <p>{{$data->ket}}</p>
+        @auth
         <p><a href="#" class="btn btn-primary" onclick="Pinjam({{$data->id}})">Pinjam</a></p>
+        @endauth
+
+        @guest
+        <p><a href="{{ route('login') }}" class="btn btn-primary">Pinjam</a></p>
+        @endguest
       </div>
     </div>
   </div>

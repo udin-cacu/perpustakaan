@@ -30,7 +30,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html"><i class="flaticon-university"></i> Library <br><small>University</small></a>
+        <a class="navbar-brand" href="/"><i class="flaticon-university"></i> Library <br><small>University</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
@@ -43,6 +43,9 @@
 
             <li class="nav-item {{ Request::is('about') ? 'active' : '' }}">
                 <a href="/about" class="nav-link">About</a>
+            </li>
+            <li class="nav-item {{ Request::is('books') ? 'active' : '' }}">
+                <a href="/books" class="nav-link">Books</a>
             </li>
             <li class="nav-item {{ Request::is('petugas') ? 'active' : '' }}">
                 <a href="/petugas" class="nav-link">Library Officer</a>

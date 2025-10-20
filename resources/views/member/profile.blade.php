@@ -84,7 +84,7 @@
 				<table width="100%">
 					<tr>
 						<td width="40%">
-							<button type="button" onclick="Simpan();" class="btn btn-block btn-success ml-auto menusxx"><i class="fa fa-plus"></i> Ubah Photo</button> 
+							<button type="button" onclick="Simpan();" class="btn btn-block btn-success ml-auto menusxx"><i class="fa fa-plus"></i> Update Photo</button> 
 						</td>
 						<td width="20%"></td>
 						<td width="40%"></td>
@@ -98,20 +98,30 @@
 				<h4 class="mb-4">Update data</h4>
 				<form action="#">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Your Name" id="name">
+						<label for="recipient-name" class="col-form-label">Name</label>
+						<input type="text" class="form-control" placeholder="Your Name" id="name" value="{{$user->name}}">
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Your Email" id="email">
+						<label for="recipient-name" class="col-form-label">Email</label>
+						<input type="text" class="form-control" placeholder="Your Email" id="email" value="{{$user->email}}">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">Address</label>
+						<input type="text" class="form-control" placeholder="Your Address" id="alamat" value="{{$user->alamat}}">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">Phone Number</label>
+						<input type="text" class="form-control" placeholder="Your Phone Number" id="no_hp" value="{{$user->no_hp}}">
 					</div>
 					<div class="form-group">
 						<table width="100%">
 							<tr>
 								<td width="40%">
-									<button type="button" onclick="Simpan();" class="btn btn-block btn-success ml-auto menusxx"><i class="fa fa-plus"></i> Tambah</button> 
+									<button type="button" onclick="Simpan();" class="btn btn-block btn-success ml-auto menusxx"><i class="fa fa-plus"></i> Update</button> 
 								</td>
 								<td width="5%"></td>
 								<td width="40%">
-									<button type="button" onclick="Close();" class="btn btn-block btn-warning ml-auto menusxx" style="color:white;"><i class="fa fa-minus"></i> Close</button>
+									<button type="button" onclick="Close();" class="btn btn-block btn-danger ml-auto menusxx" style="color:white;"><i class="fa fa-minus"></i> Close</button>
 								</td>
 							</tr>
 						</table>
@@ -197,6 +207,8 @@
 				'id': $('#idedit').val(),
 				'name': $('#name').val(),
 				'email': $('#email').val(),
+				'alamat': $('#alamat').val(),
+				'no_hp': $('#no_hp').val(),
 				'gambar': $('.imgs').val(),
 			},
 			success: function(data) {

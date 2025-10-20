@@ -31,9 +31,9 @@ Route::get('/about', function () {
 
 Route::get('/petugas', [App\Http\Controllers\UsersController::class, 'petugas'])->name('petugas');
 
+Route::get('/books', [App\Http\Controllers\BooksController::class, 'index2'])->name('books.index2');
 
 Auth::routes();
-
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile', [App\Http\Controllers\UsersController::class, 'dataprofile'])->name('profile');
@@ -85,8 +85,6 @@ Route::group(['middleware' => 'auth'], function(){
 
 
     Route::middleware(['auth', 'role:3'])->group(function () {
-
-        Route::get('/books', [App\Http\Controllers\BooksController::class, 'index'])->name('books.index');
 
         Route::get('/konfirmasipinjam', [App\Http\Controllers\PinjamController::class, 'index'])->name('konfirmasipinjam.index');
         Route::get('/konfirmasipinjam/data', [App\Http\Controllers\PinjamController::class, 'data'])->name('konfirmasipinjam.data');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pinjams;
 use App\Models\Books;
+use App\Models\Denda;
 use DataTables;
 use Uuid;
 use Auth;
@@ -50,6 +51,11 @@ class PinjamController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Y-m-d');
         $user = Auth::user();
+        $year = date('Y');
+        $date2 = date('d');
+        $month = date('m');
+        $uuid = Uuid::generate();
+        $code = substr($uuid, 0, 8);
 
         $deadline = date('Y-m-d', strtotime($date . ' +7 days'));
 
@@ -58,6 +64,7 @@ class PinjamController extends Controller
         if($book->stock != 0) {
 
             $simpan = new Pinjams();
+            $simpan->uuid = "INV".$code."-".$date2.$month.$year;
             $simpan->book_id = $request->book_id;
             $simpan->user_id = $user->id;
             $simpan->tgl_pinjam = $date;
@@ -113,6 +120,7 @@ class PinjamController extends Controller
         return DataTables::of($pinjam)->make(true);
     }
 
+    /*Admin Deadline*/
     public function index3()
     {
         date_default_timezone_set('Asia/Jakarta');
@@ -132,19 +140,38 @@ class PinjamController extends Controller
             'pinjam.status',
             'pinjam.id as idpinjam',
             'books.*',
-            DB::raw('DATE_FORMAT(pinjam.tgl_kembali,"%d %M %Y") as tanggal'),
-            DB::raw('DATE_FORMAT(pinjam.tgl_pinjam,"%d %M %Y") as tanggal2')
-            ,'petugas.name as namapetugas','member.name as namamember'
+            DB::raw('DATE_FORMAT(pinjam.tgl_kembali, "%d %M %Y") as tanggal'),
+            DB::raw('DATE_FORMAT(pinjam.tgl_pinjam, "%d %M %Y") as tanggal2'),
+            'petugas.name as namapetugas',
+            'member.name as namamember',
+
+            // Denda: 1000 per hari keterlambatan, minimal 0
+            DB::raw('GREATEST(DATEDIFF(CURDATE(), pinjam.tgl_kembali), 0) * 1000 as denda'),
+            DB::raw('GREATEST(DATEDIFF(CURDATE(), pinjam.tgl_kembali), 0) as hari_telat')
         )
         ->leftJoin('books', 'pinjam.book_id', '=', 'books.id')
-        ->leftJoin('users as member','pinjam.user_id','=','member.id')      
-        ->leftJoin('users as petugas','pinjam.petugas_id','=','petugas.id') 
-        // ->where('petugas.id', $user->id)
+        ->leftJoin('users as member', 'pinjam.user_id', '=', 'member.id')      
+        ->leftJoin('users as petugas', 'pinjam.petugas_id', '=', 'petugas.id') 
         ->whereDate('pinjam.tgl_kembali', '<=', Carbon::now()->addDays(2)->toDateString())
         ->where('pinjam.status', '!=', 'selesai')
         ->get();
 
-        return DataTables::of($pinjam)->make(true);
+        if($pinjam){
+            // Simpan ke tabel denda
+            foreach ($pinjam as $item) {
+                $dendaAmount = $item->hari_telat * 1000;
+
+                // Simpan/update ke tabel denda
+                Denda::updateOrCreate(
+                    ['pinjam_id' => $item->idpinjam],
+                    ['jumlah_denda' => $dendaAmount]
+                );
+
+            }
+
+
+            return DataTables::of($pinjam)->make(true);
+        }
     }
 
     public function edit(Request $request)
@@ -172,6 +199,9 @@ class PinjamController extends Controller
             'status' => $request->status
         ]);
 
+        $ubah = Denda::where('pinjam_id', $request->id)
+        ->update(['status' => 'dibayar']);
+        
         return response()->json($update);
     }
 

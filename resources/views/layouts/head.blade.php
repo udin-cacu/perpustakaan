@@ -78,7 +78,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html"><i class="flaticon-university"></i> Library <br><small>University</small></a>
+			<a class="navbar-brand" href="/home"><i class="flaticon-university"></i> Library <br><small>University</small></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
 			</button>
@@ -103,7 +103,7 @@
 					<li class="nav-item {{ Request::is('contact') ? 'active' : '' }}">
 						<a href="/contact" class="nav-link">Contact</a>
 					</li>
-
+					@if(Auth::user())
 					<li class="nav-item dropdown">
 						<a class="nav-link d-flex align-items-center" href="#" id="userDropdown" role="button"
 						data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" style="text-decoration:none;">
@@ -157,6 +157,7 @@
 						@csrf
 					</form>
 				</li>
+				@endif
 			</ul>
 		</li>
 

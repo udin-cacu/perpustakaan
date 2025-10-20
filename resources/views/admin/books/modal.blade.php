@@ -9,10 +9,10 @@
     </div>
     <div class="modal-body">
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="recipient-name" class="col-form-label">Kode Buku</label>
             <input type="text" class="form-control" id="kode" placeholder="Contoh : BN-0001-25">
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label for="recipient-name" class="col-form-label">Judul Buku</label>
@@ -94,10 +94,10 @@
 </div>
 <div class="modal-body">
   <input type="hidden" id="idedit">
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="recipient-name" class="col-form-label">Kode Buku</label>
     <input type="text" class="form-control" id="kodeedit" placeholder="Contoh : BN-0001-25">
-</div>
+</div> -->
 
 <div class="form-group">
     <label for="recipient-name" class="col-form-label">Judul Buku</label>

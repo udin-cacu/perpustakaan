@@ -71,6 +71,7 @@
                 <th>Deadline</th>
                 <th>Status</th>
                 <th>Petugas Cek</th>
+                <th>Denda</th>
                 <th width="14%">Opsi</th>
               </tr>
             </thead>
@@ -93,12 +94,16 @@
         pageLength: 20,
         processing: true,
         serverSide: true,
-            /*columnDefs: [
-                {
-                    "targets": [ 0 ],
-                    "visible": false
-                }
-            ],*/
+        columnDefs: [
+          {
+            // "targets": [ 0 ],
+            "visible": false
+          },
+          {
+            "targets": [ 9 ],
+            "render": $.fn.dataTable.render.number( ',', '.', 0, 'Rp. ' )
+          },
+        ],
         order: [[ 0, 'desc' ]],
         ajax:{
           url: "{{ route('deadline.data3') }}",
@@ -141,6 +146,7 @@
               }
             }
           },
+          { data: 'denda', name: 'denda' },
           { 
             render: function ( data, type, row ) {
 

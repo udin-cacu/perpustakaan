@@ -114,6 +114,8 @@ class UsersController extends Controller
             $ubahmember = Users::findOrFail($request->id);
             $ubahmember->name = $request->name;
             $ubahmember->email = $request->email;
+            $ubahmember->alamat = $request->alamat;
+            $ubahmember->no_hp = $request->no_hp;
             $ubahmember->save();
 
         }elseif(!$request->name && $request->gambar) {
@@ -126,6 +128,8 @@ class UsersController extends Controller
             $ubahmember = Users::findOrFail($request->id);
             $ubahmember->name = $request->name;
             $ubahmember->email = $request->email;
+            $ubahmember->alamat = $request->alamat;
+            $ubahmember->no_hp = $request->no_hp;
             $ubahmember->photo = $request->gambar;
             $ubahmember->save();
         }
