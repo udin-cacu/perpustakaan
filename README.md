@@ -63,4 +63,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Spesifikasi Programram
+1. Multi Auth User
+2. Untuk Admin terdapat Master Data member, petugas, Buku, Menu pinjaman ada pinjaman dan deadline.
+3. Untuk Member terdapat menu home, about, buku, petugas perpus, pinjaman, contact, dan profile.
+4. Ada crud dan upoad data.
